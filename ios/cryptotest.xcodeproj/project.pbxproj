@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* cryptotestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* cryptotestTests.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-cryptotest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-cryptotest.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -16,6 +15,9 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D4969E3A2B6B8CC5005906BC /* ECDSAModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4969E392B6B8CC5005906BC /* ECDSAModule.swift */; };
 		D4969E3E2B6B8E1A005906BC /* ECDSAModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4969E3D2B6B8E1A005906BC /* ECDSAModuleBridge.m */; };
+		D4E755022B73888A0057E685 /* ecdsaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E755012B73888A0057E685 /* ecdsaTests.swift */; };
+		D4E755032B738AB30057E685 /* ECDSAModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4969E392B6B8CC5005906BC /* ECDSAModule.swift */; };
+		D4E755042B738AB80057E685 /* ECDSAModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4969E3D2B6B8E1A005906BC /* ECDSAModuleBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +33,6 @@
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* cryptotestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cryptotestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* cryptotestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cryptotestTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* cryptotest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cryptotest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = cryptotest/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = cryptotest/AppDelegate.mm; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		D4E754D42B7372010057E685 /* ECDSAModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECDSAModule.swift; sourceTree = "<group>"; };
 		D4E754D52B7372010057E685 /* ECDSAModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECDSAModuleBridge.m; sourceTree = "<group>"; };
 		D4E754D62B7372010057E685 /* cryptotest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cryptotest-Bridging-Header.h"; sourceTree = "<group>"; };
+		D4E755012B73888A0057E685 /* ecdsaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ecdsaTests.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -77,8 +79,8 @@
 		00E356EF1AD99517003FC87E /* cryptotestTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* cryptotestTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
+				D4E755012B73888A0057E685 /* ecdsaTests.swift */,
 			);
 			path = cryptotestTests;
 			sourceTree = "<group>";
@@ -238,6 +240,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -424,7 +427,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* cryptotestTests.m in Sources */,
+				D4E755022B73888A0057E685 /* ecdsaTests.swift in Sources */,
+				D4E755042B738AB80057E685 /* ECDSAModuleBridge.m in Sources */,
+				D4E755032B738AB30057E685 /* ECDSAModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +467,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = cryptotestTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,7 +480,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "cryptotestTests/cryptotestTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "NativeModules/ECDSAModule/cryptotest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cryptotest.app/cryptotest";
@@ -491,7 +496,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = cryptotestTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -504,7 +509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "cryptotestTests/cryptotestTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "NativeModules/ECDSAModule/cryptotest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cryptotest.app/cryptotest";
 			};

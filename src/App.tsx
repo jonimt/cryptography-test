@@ -17,8 +17,7 @@ FJVJChsBUza6lQBGqfGaFa45I2NwZ27AR3MqxI8i7nbTbwE3cacpuGeg
 const iosPublicKPem = `-----BEGIN PUBLIC KEY-----
 MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM0Qqrt/i0SK0aNGq/UMXl5JBNbJ3
 yBSVSQobAVM2upUARqnxmhWuOSNjcGduwEdzKsSPIu52028BN3GnKbhnoA==
------END PUBLIC KEY-----
-`;
+-----END PUBLIC KEY-----`;
 const iosJWT =
   'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiIwMmk3WjAwMDAwVkswTGNRQUwiLCJpc3MiOiJjb25zdW1lciIsImlhdCI6MTcwNzIyNTkwMCwiZXhwIjoxNzM3MjI1OTAwfQ.rUEZIeHrD1sQkRsOaSzXux_C3Cn9qDAul4lzcMFm5m0YJoZF3WcjNgAo5H59J1LkVpze2SDi-HH4a4cjNpnL8g';
 
@@ -40,7 +39,6 @@ function App(): React.JSX.Element {
   const [signedJwt, setJwt] = React.useState<string>('');
   const [publicKey, setPublicKey] = React.useState<string>('');
   const [privateKey, setPrivateKey] = React.useState<string>('');
-  const [isVerified, setIsVerified] = React.useState<boolean>(false);
 
   const generateKeysiOS = async () => {
     const {privateKeyPEM, publicKeyPEM} = await ECDSAModule.generateKeyPair();
@@ -70,7 +68,6 @@ function App(): React.JSX.Element {
   const verifyJWTiOS = async () => {
     const verify = await ECDSAModule.verifyJwt(signedJwt, publicKey);
     console.log('verified, is proper JWT --> ', verify);
-    setIsVerified(verify);
   };
 
   const signJWTWithHardAndroidKeysWithiOSModule = async () => {
@@ -127,7 +124,6 @@ function App(): React.JSX.Element {
     try {
       const verify = await ECDSAModule.verifyJwt(signedJwt, publicKey);
       console.log('verified, is proper JWT --> ', verify);
-      setIsVerified(verify);
     } catch (error) {
       console.log('error verified jwt --> ', JSON.stringify(error));
     }
@@ -165,7 +161,7 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       {Platform.OS === 'ios' ? (
-        <View style={styles.boxblue}>
+        <View style={styles.box}>
           <Pressable style={styles.button} onPress={generateKeysiOS}>
             <Text>Generate iOS keys</Text>
           </Pressable>
@@ -178,7 +174,7 @@ function App(): React.JSX.Element {
           <Pressable
             style={styles.button}
             onPress={signJWTWithHardAndroidKeysWithiOSModule}>
-            <Text>Sign jwt with iOS keys in Android and verify</Text>
+            <Text>Sign jwt with Android keys in iOS and verify</Text>
           </Pressable>
           <Pressable
             style={styles.button}
@@ -187,7 +183,7 @@ function App(): React.JSX.Element {
           </Pressable>
         </View>
       ) : (
-        <View style={styles.boxgreen}>
+        <View style={styles.box}>
           <Pressable style={styles.button} onPress={generateKeysAndroid}>
             <Text>Generate Android keys</Text>
           </Pressable>
@@ -209,25 +205,15 @@ function App(): React.JSX.Element {
           </Pressable>
         </View>
       )}
-      <View
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: isVerified ? 'green' : 'red',
-        }}
-      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  boxblue: {
+  box: {
     flex: 1,
-    backgroundColor: 'blue',
-  },
-  boxgreen: {
-    flex: 1,
-    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     flex: 1,
@@ -235,10 +221,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: '100%',
+    width: 200,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'black',
+    marginVertical: 10,
   },
 });
 

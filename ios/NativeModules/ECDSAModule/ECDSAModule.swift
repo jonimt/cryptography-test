@@ -13,7 +13,7 @@ class ECDSAModule: NSObject {
    For iOS, if you override constantsToExport() then you should also implement + requiresMainQueueSetup to let React Native know if your module needs to be initialized on the main thread, before any JavaScript code executes. Otherwise you will see a warning that in the future your module may be initialized on a background thread unless you explicitly opt out with + requiresMainQueueSetup:. If your module does not require access to UIKit, then you should respond to + requiresMainQueueSetup with NO.
    */
   @objc static func requiresMainQueueSetup() -> Bool {
-      return false
+    return false
   }
   
   // Generate an ECDSA key pair using Curve P-256 and return them in PEM format

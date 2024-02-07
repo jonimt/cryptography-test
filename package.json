@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "test:ios": "xcodebuild test -workspace ios/cryptotest.xcworkspace -scheme cryptotest -destination 'platform=iOS Simulator,name=iPhone 15'"
   },
   "dependencies": {
     "react": "18.2.0",
