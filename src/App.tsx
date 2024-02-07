@@ -1,0 +1,245 @@
+import React from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Platform,
+} from 'react-native';
+import ECDSAModule from '../ECDSAModule';
+
+const iosPrivateKPem = `-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgw3369DHzgkqwtqP9
+clGnWOJbFyCMKaBeOcEy2IdrayyhRANCAAQzRCqu3+LRIrRo0ar9QxeXkkE1snfI
+FJVJChsBUza6lQBGqfGaFa45I2NwZ27AR3MqxI8i7nbTbwE3cacpuGeg
+-----END PRIVATE KEY-----`;
+const iosPublicKPem = `-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEM0Qqrt/i0SK0aNGq/UMXl5JBNbJ3
+yBSVSQobAVM2upUARqnxmhWuOSNjcGduwEdzKsSPIu52028BN3GnKbhnoA==
+-----END PUBLIC KEY-----
+`;
+const iosJWT =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiIwMmk3WjAwMDAwVkswTGNRQUwiLCJpc3MiOiJjb25zdW1lciIsImlhdCI6MTcwNzIyNTkwMCwiZXhwIjoxNzM3MjI1OTAwfQ.rUEZIeHrD1sQkRsOaSzXux_C3Cn9qDAul4lzcMFm5m0YJoZF3WcjNgAo5H59J1LkVpze2SDi-HH4a4cjNpnL8g';
+
+const androidPrivateKPem = `-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQguggey2JLFmC0yAi0
+iVc3XRJMlebLMR5Scqodiicn5VuhRANCAATIQmpepXH8uO2WY65rjEyanYXJTwtK
+tgLdcrDhJFyqOxfwXHTsVgwIB6zL7OmdkixUw2sm4eQVpTCniqMH9SXP
+-----END PRIVATE KEY-----`;
+const androidPublicKPem = `-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyEJqXqVx/LjtlmOua4xMmp2FyU8L
+SrYC3XKw4SRcqjsX8Fx07FYMCAesy+zpnZIsVMNrJuHkFaUwp4qjB/Ulzw==
+-----END PUBLIC KEY-----`;
+// This jwt is signed with the private key above
+// and should be able to be verified with the public key above
+const androidJWT =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiIwMmk3WjAwMDAwVkswTGNRQUwiLCJpc3MiOiJjb25zdW1lciIsImV4cCI6MTczNzIyODA1MywiaWF0IjoxNzA3MjI4MDUzfQ.EdC8C8p0OGWG_nej4wgeJlb_uJY_8Wu4UKHTMUAlfqrEVoaC6HZflrqQp0tYbC7WoygQmeGDgOU0g34RBdcb-Q';
+
+function App(): React.JSX.Element {
+  const [signedJwt, setJwt] = React.useState<string>('');
+  const [publicKey, setPublicKey] = React.useState<string>('');
+  const [privateKey, setPrivateKey] = React.useState<string>('');
+  const [isVerified, setIsVerified] = React.useState<boolean>(false);
+
+  const generateKeysiOS = async () => {
+    const {privateKeyPEM, publicKeyPEM} = await ECDSAModule.generateKeyPair();
+
+    console.log('privateKeyPEM iOS --> \n', privateKeyPEM);
+    console.log('publicKeyPEM iOS --> \n', publicKeyPEM);
+    setPrivateKey(privateKeyPEM);
+    setPublicKey(publicKeyPEM);
+  };
+
+  const signJWTiOS = async () => {
+    try {
+      const jwt = await ECDSAModule.signJwt(
+        'consumer',
+        '02i7Z00000VK0LcQAL',
+        30000000,
+        privateKey,
+      );
+
+      console.log('generated jwt --> ', jwt);
+      setJwt(jwt);
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
+
+  const verifyJWTiOS = async () => {
+    const verify = await ECDSAModule.verifyJwt(signedJwt, publicKey);
+    console.log('verified, is proper JWT --> ', verify);
+    setIsVerified(verify);
+  };
+
+  const signJWTWithHardAndroidKeysWithiOSModule = async () => {
+    const jwt = await ECDSAModule.signJwt(
+      'consumer',
+      '02i7Z00000VK0LcQAL',
+      30000000,
+      androidPrivateKPem,
+    );
+    console.log('generated jwt --> ', jwt);
+    verifyJWTSignedWithAndroidKeysWithiOSModule(jwt);
+  };
+
+  const verifyJWTSignedWithAndroidKeysWithiOSModule = async (jwt: string) => {
+    try {
+      const verify = await ECDSAModule.verifyJwt(jwt, androidPublicKPem);
+      console.log('verified, is proper JWT --> ', verify);
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
+
+  const verifyAndroidSignedJWTiniOSModule = async () => {
+    try {
+      const verify = await ECDSAModule.verifyJwt(androidJWT, androidPublicKPem);
+      console.log('verified, is proper JWT --> ', verify);
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
+
+  const generateKeysAndroid = async () => {
+    const {privateKeyPEM, publicKeyPEM} = await ECDSAModule.generateKeyPair();
+
+    console.log('privateKeyPEM Android --> \n', privateKeyPEM);
+    console.log('publicKeyPEM Android --> \n', publicKeyPEM);
+    setPrivateKey(privateKeyPEM);
+    setPublicKey(publicKeyPEM);
+  };
+
+  const signJWTAndroid = async () => {
+    const jwt = await ECDSAModule.signJwt(
+      'consumer',
+      '02i7Z00000VK0LcQAL',
+      30000000,
+      privateKey,
+    );
+
+    console.log('generated jwt --> ', jwt);
+    setJwt(jwt);
+  };
+
+  const verifyJWTAndroid = async () => {
+    try {
+      const verify = await ECDSAModule.verifyJwt(signedJwt, publicKey);
+      console.log('verified, is proper JWT --> ', verify);
+      setIsVerified(verify);
+    } catch (error) {
+      console.log('error verified jwt --> ', JSON.stringify(error));
+    }
+  };
+
+  const signJWTWithHardiOSKeysWithAndroidModule = async () => {
+    const jwt = await ECDSAModule.signJwt(
+      'consumer',
+      '02i7Z00000VK0LcQAL',
+      30000000,
+      iosPrivateKPem,
+    );
+    console.log('generated jwt --> ', jwt);
+    verifyJWTSignedWithiOSKeysWithAndroidModule(jwt);
+  };
+
+  const verifyJWTSignedWithiOSKeysWithAndroidModule = async (jwt: string) => {
+    try {
+      const verify = await ECDSAModule.verifyJwt(jwt, iosPublicKPem);
+      console.log('verified, is proper JWT --> ', verify);
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
+
+  const verifyiOSSignedJWTinAndroidModule = async () => {
+    try {
+      const verify = await ECDSAModule.verifyJwt(iosJWT, iosPublicKPem);
+      console.log('verified, is proper JWT --> ', verify);
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {Platform.OS === 'ios' ? (
+        <View style={styles.boxblue}>
+          <Pressable style={styles.button} onPress={generateKeysiOS}>
+            <Text>Generate iOS keys</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={signJWTiOS}>
+            <Text>Sign jwt with generated iOS keys</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={verifyJWTiOS}>
+            <Text>Verify signed jwt with generated iOS keys</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={signJWTWithHardAndroidKeysWithiOSModule}>
+            <Text>Sign jwt with iOS keys in Android and verify</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={verifyAndroidSignedJWTiniOSModule}>
+            <Text>Verify jwt generated in and with Android keys</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.boxgreen}>
+          <Pressable style={styles.button} onPress={generateKeysAndroid}>
+            <Text>Generate Android keys</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={signJWTAndroid}>
+            <Text>Sign jwt with generated Android keys</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={verifyJWTAndroid}>
+            <Text>Verify signed jwt with generated Android keys</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={signJWTWithHardiOSKeysWithAndroidModule}>
+            <Text>Sign jwt with iOS keys in Android and verify</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={verifyiOSSignedJWTinAndroidModule}>
+            <Text>Verify jwt generated in and with iOS keys</Text>
+          </Pressable>
+        </View>
+      )}
+      <View
+        style={{
+          width: 100,
+          height: 100,
+          backgroundColor: isVerified ? 'green' : 'red',
+        }}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  boxblue: {
+    flex: 1,
+    backgroundColor: 'blue',
+  },
+  boxgreen: {
+    flex: 1,
+    backgroundColor: 'green',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default App;
