@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "test:ios": "xcodebuild test -workspace ios/cryptotest.xcworkspace -scheme cryptotest -destination 'platform=iOS Simulator,name=iPhone 15'"
+    "test:ios": "xcodebuild test -workspace ios/cryptotest.xcworkspace -scheme cryptotest -destination 'platform=iOS Simulator,name=iPhone 15'",
+    "test:android": "cd android && ./gradlew testDebugUnitTest"
   },
   "dependencies": {
     "react": "18.2.0",

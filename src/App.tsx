@@ -22,18 +22,18 @@ const iosJWT =
   'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiIwMmk3WjAwMDAwVkswTGNRQUwiLCJpc3MiOiJjb25zdW1lciIsImlhdCI6MTcwNzIyNTkwMCwiZXhwIjoxNzM3MjI1OTAwfQ.rUEZIeHrD1sQkRsOaSzXux_C3Cn9qDAul4lzcMFm5m0YJoZF3WcjNgAo5H59J1LkVpze2SDi-HH4a4cjNpnL8g';
 
 const androidPrivateKPem = `-----BEGIN PRIVATE KEY-----
-MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQguggey2JLFmC0yAi0
-iVc3XRJMlebLMR5Scqodiicn5VuhRANCAATIQmpepXH8uO2WY65rjEyanYXJTwtK
-tgLdcrDhJFyqOxfwXHTsVgwIB6zL7OmdkixUw2sm4eQVpTCniqMH9SXP
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHf//Ktp7SUgl7oUY
+3qWwBzpw7aSLFE/PONt+pHnikL2hRANCAATAet9x7ppMLDYz2n8KDBewFmmzIMsC
+80PNSELe5oWGpNngud7gvFfEY+lG6tgNh0ws5pWyG0tX4dNNIak6XUYN
 -----END PRIVATE KEY-----`;
 const androidPublicKPem = `-----BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyEJqXqVx/LjtlmOua4xMmp2FyU8L
-SrYC3XKw4SRcqjsX8Fx07FYMCAesy+zpnZIsVMNrJuHkFaUwp4qjB/Ulzw==
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEwHrfce6aTCw2M9p/CgwXsBZpsyDL
+AvNDzUhC3uaFhqTZ4Lne4LxXxGPpRurYDYdMLOaVshtLV+HTTSGpOl1GDQ==
 -----END PUBLIC KEY-----`;
 // This jwt is signed with the private key above
 // and should be able to be verified with the public key above
 const androidJWT =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJzdWIiOiIwMmk3WjAwMDAwVkswTGNRQUwiLCJpc3MiOiJjb25zdW1lciIsImV4cCI6MTczNzIyODA1MywiaWF0IjoxNzA3MjI4MDUzfQ.EdC8C8p0OGWG_nej4wgeJlb_uJY_8Wu4UKHTMUAlfqrEVoaC6HZflrqQp0tYbC7WoygQmeGDgOU0g34RBdcb-Q';
+  'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb25zdW1lciIsInN1YiI6IjAyaTdaMDAwMDBWSzBMY1FBTCIsImlhdCI6MTcwNzQ3NTY1OSwiZXhwIjoxNzM3NDc1NjU5fQ.O05fuxcf7hBKvlSbeX45pkehFTch8oz7UoVmaU4QhrEPeiDeCGsE5BolupTm_vdqajPJbL0yMfFG92DWdAQpGA';
 
 function App(): React.JSX.Element {
   const [signedJwt, setJwt] = React.useState<string>('');
